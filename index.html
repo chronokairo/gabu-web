@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC Heroes Wiki - Enciclopédia dos Heróis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a:hover {
+            background: rgba(79, 172, 254, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-box {
+            padding: 0.5rem 1rem;
+            border: 2px solid rgba(79, 172, 254, 0.3);
+            border-radius: 25px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.1));
+            border-radius: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4facfe;
+            margin-bottom: 0.5rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(79, 172, 254, 0.3);
+            border-radius: 25px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #4facfe;
+            border-color: #4facfe;
+            transform: translateY(-2px);
+        }
+
+        .heroes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+        }
+
+        .hero-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(79, 172, 254, 0.2);
+            border-color: #4facfe;
+        }
+
+        .hero-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .hero-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4facfe;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-alias {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .power-level {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #000;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .hero-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #4facfe;
+            min-width: 100px;
+        }
+
+        .info-value {
+            opacity: 0.9;
+        }
+
+        .powers-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .power-tag {
+            background: rgba(79, 172, 254, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #000;
+        }
+
+        .btn-secondary {
+            background: rgba(79, 172, 254, 0.2);
+            color: #ffffff;
+            border: 1px solid rgba(79, 172, 254, 0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0f0f23, #1a1a3e);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #4facfe;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #00f2fe;
+        }
+
+        .modal h2 {
+            color: #4facfe;
+            margin-bottom: 1rem;
+        }
+
+        .modal-hero-details {
+            line-height: 1.8;
+        }
+
+        .team-badge {
+            background: rgba(0, 242, 254, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: #4facfe;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .heroes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                justify-content: center;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilo individual por categoria de herói */
+        .hero-card[data-category="justice-league"] {
+            border-left: 8px solid #4facfe;
+            background: linear-gradient(90deg, rgba(79,172,254,0.08) 60%, rgba(0,242,254,0.04) 100%);
+        }
+        .hero-card[data-category="bat-family"] {
+            border-left: 8px solid #212121;
+            background: linear-gradient(90deg, rgba(33,33,33,0.08) 60%, rgba(79,172,254,0.04) 100%);
+        }
+        .hero-card[data-category="teen-titans"] {
+            border-left: 8px solid #c62828;
+            background: linear-gradient(90deg, rgba(198,40,40,0.08) 60%, rgba(79,172,254,0.04) 100%);
+        }
+        .hero-card[data-category="solo"] {
+            border-left: 8px solid #ffd700;
+            background: linear-gradient(90deg, rgba(255,215,0,0.08) 60%, rgba(79,172,254,0.04) 100%);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">DC Heroes Wiki</div>
+                <nav>
+                    <a href="#home">Home</a>
+                    <a href="#heroes">Heróis</a>
+                    <a href="#teams">Equipes</a>
+                    <a href="#universe">Universo</a>
+                    <a href="#about">Sobre</a>
+                </nav>
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="Buscar heróis..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero-section" id="home">
+                <h1>Enciclopédia dos Heróis DC</h1>
+                <p>Explore o universo dos maiores heróis da DC Comics. Descubra origens, poderes, histórias e muito mais em nossa base de dados completa.</p>
+            </section>
+
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalHeroes">12</div>
+                    <div>Heróis Catalogados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div>Equipes Principais</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">85</div>
+                    <div>Anos de História</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div>Aventuras Épicas</div>
+                </div>
+            </section>
+
+            <section id="heroes">
+                <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: #4facfe;">Heróis da DC Comics</h2>
+                
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="justice-league">Liga da Justiça</button>
+                    <button class="filter-btn" data-filter="bat-family">Família Bat</button>
+                    <button class="filter-btn" data-filter="teen-titans">Jovens Titãs</button>
+                    <button class="filter-btn" data-filter="solo">Solo</button>
+                </div>
+
+                <div class="heroes-grid" id="heroesGrid">
+                    <!-- Heroes will be populated by JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>&copy; 2025 DC Heroes Wiki - Enciclopédia dos Heróis</div>
+                <div class="footer-links">
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Privacidade</a>
+                    <a href="#">Contato</a>
+                    <a href="#">API</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for hero details -->
+    <div id="heroModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalContent">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Heroes database
+        const heroes = [
+            {
+                name: "Superman",
+                alias: "Clark Kent / Kal-El",
+                origin: "Krypton",
+                team: "Liga da Justiça",
+                category: "justice-league",
+                powerLevel: "Ômega",
+                powers: ["Superforça", "Voo", "Visão de Calor", "Invulnerabilidade", "Super Velocidade"],
+                weakness: "Kryptonita, Magia",
+                firstAppearance: "Action Comics #1 (1938)",
+                description: "O Último Filho de Krypton, Superman é um dos heróis mais poderosos e inspiradores do universo DC. Criado por Jerry Siegel e Joe Shuster, ele estabeleceu o modelo para todos os super-heróis que viriam depois.",
+                abilities: "Força praticamente ilimitada, capacidade de voar a velocidades supersônicas, visão de calor, visão de raio-X, super audição, sopro congelante e invulnerabilidade a quase todos os ataques físicos."
+            },
+            {
+                name: "Batman",
+                alias: "Bruce Wayne",
+                origin: "Gotham City",
+                team: "Liga da Justiça",
+                category: "justice-league",
+                powerLevel: "Humano+",
+                powers: ["Intelecto Genial", "Artes Marciais", "Tecnologia Avançada", "Detetive", "Estratégia"],
+                weakness: "Humano, Obsessão",
+                firstAppearance: "Detective Comics #27 (1939)",
+                description: "O Cavaleiro das Trevas de Gotham City, Batman combate o crime usando sua inteligência superior, habilidades de combate e tecnologia avançada. Criado por Bob Kane e Bill Finger.",
+                abilities: "Mestre em artes marciais, detetive excepcional, gênio em tecnologia, estrategista brilhante e possui recursos financeiros praticamente ilimitados."
+            },
+            {
+                name: "Mulher-Maravilha",
+                alias: "Diana Prince / Princesa Diana",
+                origin: "Themyscira",
+                team: "Liga da Justiça",
+                category: "justice-league",
+                powerLevel: "Semideus",
+                powers: ["Superforça", "Voo", "Laço da Verdade", "Braceletes Indestrutíveis", "Imortalidade"],
+                weakness: "Armas Perfurantes, Magia Negra",
+                firstAppearance: "All Star Comics #8 (1941)",
+                description: "Princesa das Amazonas e embaixadora da paz, Diana é uma das heroínas mais poderosas e respeitadas do universo DC. Criada por William Moulton Marston.",
+                abilities: "Força sobre-humana, velocidade e agilidade excepcionais, imortalidade, laço mágico que força a verdade e braceletes indestrutíveis que deflexem projéteis."
+            },
+            {
+                name: "Flash",
+                alias: "Barry Allen",
+                origin: "Central City",
+                team: "Liga da Justiça",
+                category: "justice-league",
+                powerLevel: "Ômega",
+                powers: ["Super Velocidade", "Viagem no Tempo", "Força da Velocidade", "Intangibilidade", "Cura Acelerada"],
+                weakness: "Gelo Extremo, Drenagem da Força da Velocidade",
+                firstAppearance: "Showcase #4 (1956)",
+                description: "O Homem Mais Rápido do Mundo, Barry Allen obteve seus poderes após ser atingido por um raio em seu laboratório. Criado por Robert Kanigher e Carmine Infantino.",
+                abilities: "Velocidade sobre-humana, capacidade de vibrar através de objetos sólidos, viajar no tempo, criar tornados e cura acelerada."
+            },
+            {
+                name: "Aquaman",
+                alias: "Arthur Curry",
+                origin: "Atlântida",
+                team: "Liga da Justiça",
+                category: "justice-league",
+                powerLevel: "Atlante",
+                powers: ["Superforça", "Natação Supersônica", "Teleparia Aquática", "Respiração Aquática", "Tridente"],
+                weakness: "Desidratação, Ambientes Áridos",
+                firstAppearance: "More Fun Comics #73 (1941)",
+                description: "Rei dos Sete Mares, Arthur Curry é o soberano de Atlântida e protetor dos oceanos. Criado por Paul Norris e Mort Weisinger.",
+                abilities: "Força sobre-humana, capacidade de respirar underwater, comunicação telepática com vida marinha, natação em velocidades supersônicas."
+            },
+            {
+                name: "Lanterna Verde",
+                alias: "Hal Jordan",
+                origin: "Coast City",
+                team: "Liga da Justiça",
+                category: "justice-league",
+                powerLevel: "Cósmico",
+                powers: ["Anel de Poder", "Construtos de Energia", "Voo", "Proteção Espacial", "Tradução Universal"],
+                weakness: "Cor Amarela, Força de Vontade",
+                firstAppearance: "Showcase #22 (1959)",
+                description: "Piloto de teste que se tornou um dos Lanternas Verdes mais respeitados do universo. Criado por John Broome e Gil Kane.",
+                abilities: "Anel de poder alimentado pela força de vontade, capaz de criar qualquer construto imaginável, voo espacial e proteção contra ambientes hostis."
+            },
+            {
+                name: "Robin",
+                alias: "Tim Drake",
+                origin: "Gotham City",
+                team: "Família Bat",
+                category: "bat-family",
+                powerLevel: "Humano",
+                powers: ["Acrobacia", "Artes Marciais", "Detetive", "Tecnologia", "Estratégia"],
+                weakness: "Humano, Inexperiência",
+                firstAppearance: "Batman #436 (1989)",
+                description: "O terceiro Robin e atual Red Robin, Tim Drake é conhecido por sua inteligência excepcional e habilidades de detetive. Criado por Marv Wolfman e Pat Broderick.",
+                abilities: "Acrobacia excepcional, artes marciais, habilidades de detetive, conhecimento em tecnologia e estratégia táctica."
+            },
+            {
+                name: "Batgirl",
+                alias: "Barbara Gordon",
+                origin: "Gotham City",
+                team: "Família Bat",
+                category: "bat-family",
+                powerLevel: "Humano",
+                powers: ["Artes Marciais", "Ginástica", "Hacker", "Memória Eidética", "Liderança"],
+                weakness: "Humana, Lesões Passadas",
+                firstAppearance: "Detective Comics #359 (1967)",
+                description: "Filha do Comissário Gordon, Barbara é uma das heroínas mais competentes de Gotham. Criada por Gardner Fox e Carmine Infantino.",
+                abilities: "Especialista em artes marciais, ginástica excepcional, habilidades de hacker de elite, memória fotográfica e liderança natural."
+            },
+            {
+                name: "Cyborg",
+                alias: "Victor Stone",
+                origin: "Detroit",
+                team: "Liga da Justiça",
+                category: "justice-league",
+                powerLevel: "Ciborgue",
+                powers: ["Força Sobre-humana", "Interface Tecnológica", "Canhão Sônico", "Voo", "Regeneração"],
+                weakness: "EMPs, Vírus de Computador",
+                firstAppearance: "DC Comics Presents #26 (1980)",
+                description: "Metade homem, metade máquina, Victor Stone é um dos heróis mais tecnologicamente avançados do universo DC. Criado por Marv Wolfman e George Pérez.",
+                abilities: "Força cibergética, interface com qualquer tecnologia, canhão sônico, sistemas de voo e capacidade de regeneração de partes mecânicas."
+            },
+            {
+                name: "Shazam",
+                alias: "Billy Batson",
+                origin: "Fawcett City",
+                team: "Liga da Justiça",
+                category: "justice-league",
+                powerLevel: "Mágico",
+                powers: ["Sabedoria de Salomão", "Força de Hércules", "Resistência de Atlas", "Poder de Zeus", "Coragem de Aquiles", "Velocidade de Mercúrio"],
+                weakness: "Magia, Palavra Mágica",
+                firstAppearance: "Whiz Comics #2 (1940)",
+                description: "Jovem que pode se transformar no herói mais poderoso do mundo ao pronunciar a palavra mágica. Criado por Bill Parker e C.C. Beck.",
+                abilities: "Poderes dos deuses antigos: sabedoria, força, resistência, poder divino, coragem e velocidade sobre-humanas."
+            },
+            {
+                name: "Raven",
+                alias: "Rachel Roth",
+                origin: "Azarath",
+                team: "Jovens Titãs",
+                category: "teen-titans",
+                powerLevel: "Mágico",
+                powers: ["Magia das Trevas", "Telepatia", "Telecinese", "Teletransporte", "Cura Empática"],
+                weakness: "Trigon, Emoções Intensas",
+                firstAppearance: "DC Comics Presents #26 (1980)",
+                description: "Filha do demônio Trigon, Rachel usa seus poderes sombrios para o bem. Criada por Marv Wolfman e George Pérez.",
+                abilities: "Manipulação de energia sombria, telepatia, telecinese, teletransporte através de dimensões e cura empática."
+            },
+            {
+                name: "Starfire",
+                alias: "Koriand'r",
+                origin: "Tamaran",
+                team: "Jovens Titãs",
+                category: "teen-titans",
+                powerLevel: "Alienígena",
+                powers: ["Voo", "Rajadas de Energia", "Superforça", "Absorção de Linguagem", "Resistência"],
+                weakness: "Emoções Negativas, Metal Tamaraniano",
+                firstAppearance: "DC Comics Presents #26 (1980)",
+                description: "Princesa alienígena de Tamaran, Starfire trouxe alegria e poder para os Jovens Titãs. Criada por Marv Wolfman e George Pérez.",
+                abilities: "Voo supersônico, projeção de energia estelar, força sobre-humana, absorção de linguagens através do toque e resistência excepcional."
+            }
+        ];
+
+        // DOM elements
+        const heroesGrid = document.getElementById('heroesGrid');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const modal = document.getElementById('heroModal');
+        const modalContent = document.getElementById('modalContent');
+        const closeBtn = document.querySelector('.close');
+
+        // State
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Initialize the application
+        function init() {
+            renderHeroes();
+            setupEventListeners();
+        }
+
+        // Render heroes
+        function renderHeroes() {
+            const filteredHeroes = heroes.filter(hero => {
+                const matchesFilter = currentFilter === 'all' || hero.category === currentFilter;
+                const matchesSearch = hero.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                                    hero.alias.toLowerCase().includes(currentSearch.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            heroesGrid.innerHTML = '';
+            
+            filteredHeroes.forEach(hero => {
+                const heroCard = createHeroCard(hero);
+                heroesGrid.appendChild(heroCard);
+            });
+
+            // Add animation
+            document.querySelectorAll('.hero-card').forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('fade-in');
+            });
+        }
+
+        // Create hero card
+        function createHeroCard(hero) {
+            const card = document.createElement('div');
+            card.className = 'hero-card';
+            card.setAttribute('data-category', hero.category);
+            card.innerHTML = `
+                <div class="hero-header">
+                    <div>
+                        <div class="hero-name">${hero.name}</div>
+                        <div class="hero-alias">${hero.alias}</div>
+                    </div>
+                    <div class="power-level">${hero.powerLevel}</div>
+                </div>
+                <div class="hero-info">
+                    <div class="info-row">
+                        <span class="info-label">Origem:</span>
+                        <span class="info-value">${hero.origin}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Equipe:</span>
+                        <span class="info-value">${hero.team}<span class="team-badge">${hero.category}</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Fraqueza:</span>
+                        <span class="info-value">${hero.weakness}</span>
+                    </div>
+                </div>
+                <div class="powers-list">
+                    ${hero.powers.map(power => `<span class="power-tag">${power}</span>`).join('')}
+                </div>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="showHeroDetails('${hero.name}')">Ver Detalhes</button>
+                </div>
+            `;
+            return card;
+        }
+
+        // Show hero details in modal
+        function showHeroDetails(heroName) {
+            const hero = heroes.find(h => h.name === heroName);
+            if (!hero) return;
+
+            modalContent.innerHTML = `
+                <h2>${hero.name}</h2>
+                <div class="modal-hero-details">
+                    <p><strong>Nome Verdadeiro:</strong> ${hero.alias}</p>
+                    <p><strong>Origem:</strong> ${hero.origin}</p>
+                    <p><strong>Equipe:</strong> ${hero.team} <span class="team-badge">${hero.category}</span></p>
+                    <p><strong>Nível de Poder:</strong> ${hero.powerLevel}</p>
+                    <p><strong>Poderes:</strong> ${hero.powers.join(', ')}</p>
+                    <p><strong>Fraqueza:</strong> ${hero.weakness}</p>
+                    <p><strong>Primeira Aparição:</strong> ${hero.firstAppearance}</p>
+                    <p>${hero.description}</p>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Filter heroes
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                currentFilter = filter;
+                
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                renderHeroes();
+            });
+        });
+
+        // Search heroes
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            renderHeroes();
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>

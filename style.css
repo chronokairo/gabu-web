@@ -1,0 +1,111 @@
+/* Estilo moderno para o site padrão */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f4f6fb;
+  margin: 0;
+  color: #222;
+}
+header {
+  background: #2d3e50;
+  color: #fff;
+  padding: 24px 0 16px 0;
+  text-align: center;
+}
+header h1 {
+  margin: 0 0 8px 0;
+  font-size: 2.2rem;
+}
+nav {
+  margin-top: 8px;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 16px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+nav a:hover {
+  color: #ffd700;
+}
+main {
+  max-width: 700px;
+  margin: 32px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+  padding: 32px;
+}
+footer {
+  background: #2d3e50;
+  color: #fff;
+  text-align: center;
+  padding: 16px 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+/* Estilo para cada herói individualmente */
+article {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+  margin-bottom: 24px;
+  padding: 20px 24px;
+  background: #fff;
+  border-left: 8px solid #2d3e50;
+}
+article h3 {
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+/* Superman */
+article:nth-of-type(1) {
+  border-left-color: #1976d2;
+  background: linear-gradient(90deg, #e3f2fd 60%, #fff 100%);
+}
+/* Batman */
+article:nth-of-type(2) {
+  border-left-color: #212121;
+  background: linear-gradient(90deg, #f5f5f5 60%, #fff 100%);
+}
+/* Mulher-Maravilha */
+article:nth-of-type(3) {
+  border-left-color: #c62828;
+  background: linear-gradient(90deg, #ffebee 60%, #fff 100%);
+}
+ul {
+  padding-left: 18px;
+}
+ul li {
+  margin-bottom: 6px;
+}
+/* Estilos por categoria de herói */
+.hero-card[data-category="justice-league"] {
+    border-left: 8px solid #4facfe;
+    background: linear-gradient(90deg, rgba(79,172,254,0.08) 60%, rgba(0,242,254,0.04) 100%);
+}
+.hero-card[data-category="bat-family"] {
+    border-left: 8px solid #212121;
+    background: linear-gradient(90deg, rgba(33,33,33,0.08) 60%, rgba(79,172,254,0.04) 100%);
+}
+.hero-card[data-category="teen-titans"] {
+    border-left: 8px solid #c62828;
+    background: linear-gradient(90deg, rgba(198,40,40,0.08) 60%, rgba(79,172,254,0.04) 100%);
+}
+.hero-card[data-category="solo"] {
+    border-left: 8px solid #ffd700;
+    background: linear-gradient(90deg, rgba(255,215,0,0.08) 60%, rgba(79,172,254,0.04) 100%);
+}
+@media (max-width: 600px) {
+  main {
+    padding: 16px;
+    margin: 16px;
+  }
+  header h1 {
+    font-size: 1.4rem;
+  }
+  nav a {
+    margin: 0 8px;
+    font-size: 0.95rem;
+  }
+}

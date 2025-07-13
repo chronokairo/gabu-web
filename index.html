@@ -463,6 +463,43 @@
             border-left: 8px solid #ffd700;
             background: linear-gradient(90deg, rgba(255,215,0,0.08) 60%, rgba(79,172,254,0.04) 100%);
         }
+
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .hero-img-bg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1.15);
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+            width: 80%;
+            height: auto;
+            filter: grayscale(0.1) contrast(1.1) drop-shadow(0 6px 24px #1976d2bb);
+            border-radius: 32px;
+        }
+
+        .hero-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .titans-badge {
+            background: rgba(198, 40, 40, 0.8);
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-top: 0.3rem;
+        }
     </style>
 </head>
 <body>
@@ -473,7 +510,7 @@
                 <nav>
                     <a href="#home">Home</a>
                     <a href="#heroes">Heróis</a>
-                    <a href="#teams">Equipes</a>
+                    <a href="#teams" id="teamsBtn">Equipes</a>
                     <a href="#universe">Universo</a>
                     <a href="#about">Sobre</a>
                 </nav>
@@ -525,6 +562,63 @@
                     <!-- Heroes will be populated by JavaScript -->
                 </div>
             </section>
+
+            <section id="universe" style="margin-top:3rem; display:none;">
+                <h2 style="text-align:center;color:#4facfe;margin-bottom:1.5rem;">HQs Clássicas da DC Comics</h2>
+                <div class="hqs-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;max-width:900px;margin:0 auto 2rem auto;">
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">Action Comics #1 (1938)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição do Superman</div>
+                        <a href="https://www.dc.com/comics/action-comics-1938/action-comics-1" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">Detective Comics #27 (1939)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição do Batman</div>
+                        <a href="https://www.dc.com/comics/detective-comics-1937/detective-comics-27" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">All Star Comics #8 (1941)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição da Mulher-Maravilha</div>
+                        <a href="https://www.dc.com/comics/all-star-comics-1940/all-star-comics-8" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">Showcase #4 (1956)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição do Flash (Barry Allen)</div>
+                        <a href="https://www.dc.com/comics/showcase-1956/showcase-4" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">More Fun Comics #73 (1941)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição do Aquaman</div>
+                        <a href="https://www.dc.com/comics/more-fun-comics-1935/more-fun-comics-73" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">Showcase #22 (1959)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição do Lanterna Verde (Hal Jordan)</div>
+                        <a href="https://www.dc.com/comics/showcase-1956/showcase-22" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">Batman #436 (1989)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição de Tim Drake (Robin)</div>
+                        <a href="https://www.dc.com/comics/batman-1940/batman-436" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">Detective Comics #359 (1967)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição da Batgirl</div>
+                        <a href="https://www.dc.com/comics/detective-comics-1937/detective-comics-359" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">DC Comics Presents #26 (1980)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição de Cyborg, Raven e Starfire</div>
+                        <a href="https://www.dc.com/comics/dc-comics-presents-1978/dc-comics-presents-26" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                    <div class="hq-card" style="background:#181c2b;border-radius:16px;padding:1.2rem 1rem;box-shadow:0 2px 16px #4facfe22;border:1px solid #4facfe33;display:flex;flex-direction:column;align-items:flex-start;gap:0.7rem;">
+                        <div style="font-weight:bold;color:#4facfe;font-size:1.1rem;">Whiz Comics #2 (1940)</div>
+                        <div style="font-size:0.95rem;opacity:0.8;">Primeira aparição de Shazam</div>
+                        <a href="https://www.dc.com/comics/whiz-comics-1940/whiz-comics-2" target="_blank" class="btn btn-primary" style="margin-top:0.5rem;">Ver HQ</a>
+                    </div>
+                </div>
+                <p style="text-align:center;opacity:0.8;">Clique nos cards para ler mais sobre cada HQ clássica no site oficial da DC Comics.</p>
+            </section>
         </div>
     </main>
 
@@ -533,7 +627,7 @@
             <div class="footer-content">
                 <div>&copy; 2025 DC Heroes Wiki - Enciclopédia dos Heróis</div>
                 <div class="footer-links">
-                    <a href="#">Termos de Uso</a>
+                    <a href="#" id="termsLink">Termos de Uso</a>
                     <a href="#">Privacidade</a>
                     <a href="#">Contato</a>
                     <a href="#">API</a>
@@ -552,6 +646,28 @@
         </div>
     </div>
 
+    <!-- Modal Termos de Uso -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeTerms">&times;</span>
+            <h2>Termos de Uso</h2>
+            <div style="line-height:1.7;font-size:1rem;opacity:0.95;">
+                <p>Bem-vindo ao DC Heroes Wiki! Ao acessar e utilizar este site, você concorda com os seguintes termos:</p>
+                <ul style="margin-left:1.2rem;">
+                    <li>O conteúdo é apenas para fins informativos e de entretenimento, sem afiliação oficial à DC Comics.</li>
+                    <li>Imagens, nomes e marcas pertencem aos seus respectivos detentores de direitos autorais.</li>
+                    <li>Não é permitido copiar, redistribuir ou utilizar o conteúdo para fins comerciais sem autorização.</li>
+                    <li>O site pode conter links para sites externos, não nos responsabilizamos pelo conteúdo de terceiros.</li>
+                    <li>O uso do site implica aceitação destes termos e de eventuais atualizações.</li>
+                </ul>
+                <p>Para dúvidas, utilize o link de contato no rodapé.</p>
+                <p style="margin-top:1.2rem;">
+                    Saiba mais sobre o projeto em <a href="#about" id="aboutLinkInTerms" style="color:#4facfe;text-decoration:underline;">Sobre</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Heroes database
         const heroes = [
@@ -566,20 +682,26 @@
                 weakness: "Kryptonita, Magia",
                 firstAppearance: "Action Comics #1 (1938)",
                 description: "O Último Filho de Krypton, Superman é um dos heróis mais poderosos e inspiradores do universo DC. Criado por Jerry Siegel e Joe Shuster, ele estabeleceu o modelo para todos os super-heróis que viriam depois.",
-                abilities: "Força praticamente ilimitada, capacidade de voar a velocidades supersônicas, visão de calor, visão de raio-X, super audição, sopro congelante e invulnerabilidade a quase todos os ataques físicos."
+                abilities: "Força praticamente ilimitada, capacidade de voar a velocidades supersônicas, visão de calor, visão de raio-X, super audição, sopro congelante e invulnerabilidade a quase todos os ataques físicos.",
+                primaryColor: "#1976d2",
+                secondaryColor: "#e53935",
+                backHistory: "Kal-El foi enviado de Krypton para a Terra, onde foi criado como Clark Kent. Descobriu seus poderes e se tornou o Superman, símbolo de esperança e justiça."
             },
             {
                 name: "Batman",
                 alias: "Bruce Wayne",
                 origin: "Gotham City",
-                team: "Liga da Justiça",
-                category: "justice-league",
+                team: "Família Bat",
+                category: "bat-family",
                 powerLevel: "Humano+",
                 powers: ["Intelecto Genial", "Artes Marciais", "Tecnologia Avançada", "Detetive", "Estratégia"],
                 weakness: "Humano, Obsessão",
                 firstAppearance: "Detective Comics #27 (1939)",
                 description: "O Cavaleiro das Trevas de Gotham City, Batman combate o crime usando sua inteligência superior, habilidades de combate e tecnologia avançada. Criado por Bob Kane e Bill Finger.",
-                abilities: "Mestre em artes marciais, detetive excepcional, gênio em tecnologia, estrategista brilhante e possui recursos financeiros praticamente ilimitados."
+                abilities: "Mestre em artes marciais, detetive excepcional, gênio em tecnologia, estrategista brilhante e possui recursos financeiros praticamente ilimitados.",
+                primaryColor: "#212121",
+                secondaryColor: "#fbc02d",
+                backHistory: "Após testemunhar o assassinato de seus pais, Bruce Wayne jurou combater o crime em Gotham, tornando-se o Batman, o Cavaleiro das Trevas."
             },
             {
                 name: "Mulher-Maravilha",
@@ -592,7 +714,10 @@
                 weakness: "Armas Perfurantes, Magia Negra",
                 firstAppearance: "All Star Comics #8 (1941)",
                 description: "Princesa das Amazonas e embaixadora da paz, Diana é uma das heroínas mais poderosas e respeitadas do universo DC. Criada por William Moulton Marston.",
-                abilities: "Força sobre-humana, velocidade e agilidade excepcionais, imortalidade, laço mágico que força a verdade e braceletes indestrutíveis que deflexem projéteis."
+                abilities: "Força sobre-humana, velocidade e agilidade excepcionais, imortalidade, laço mágico que força a verdade e braceletes indestrutíveis que deflexem projéteis.",
+                primaryColor: "#c62828",
+                secondaryColor: "#ffd600",
+                backHistory: "Princesa das Amazonas, Diana deixou Themyscira para ser uma heroína no mundo dos homens, tornando-se a Mulher-Maravilha."
             },
             {
                 name: "Flash",
@@ -605,46 +730,58 @@
                 weakness: "Gelo Extremo, Drenagem da Força da Velocidade",
                 firstAppearance: "Showcase #4 (1956)",
                 description: "O Homem Mais Rápido do Mundo, Barry Allen obteve seus poderes após ser atingido por um raio em seu laboratório. Criado por Robert Kanigher e Carmine Infantino.",
-                abilities: "Velocidade sobre-humana, capacidade de vibrar através de objetos sólidos, viajar no tempo, criar tornados e cura acelerada."
+                abilities: "Velocidade sobre-humana, capacidade de vibrar através de objetos sólidos, viajar no tempo, criar tornados e cura acelerada.",
+                primaryColor: "#f44336",
+                secondaryColor: "#ffd600",
+                backHistory: "Barry Allen ganhou super velocidade após um acidente com produtos químicos e um raio, tornando-se o Flash, o homem mais rápido do mundo."
             },
             {
                 name: "Aquaman",
                 alias: "Arthur Curry",
                 origin: "Atlântida",
-                team: "Liga da Justiça",
-                category: "justice-league",
+                team: "Solo",
+                category: "solo",
                 powerLevel: "Atlante",
                 powers: ["Superforça", "Natação Supersônica", "Teleparia Aquática", "Respiração Aquática", "Tridente"],
                 weakness: "Desidratação, Ambientes Áridos",
                 firstAppearance: "More Fun Comics #73 (1941)",
                 description: "Rei dos Sete Mares, Arthur Curry é o soberano de Atlântida e protetor dos oceanos. Criado por Paul Norris e Mort Weisinger.",
-                abilities: "Força sobre-humana, capacidade de respirar underwater, comunicação telepática com vida marinha, natação em velocidades supersônicas."
+                abilities: "Força sobre-humana, capacidade de respirar underwater, comunicação telepática com vida marinha, natação em velocidades supersônicas.",
+                primaryColor: "#009688",
+                secondaryColor: "#ffd600",
+                backHistory: "Arthur Curry, filho da rainha Atlanna, descobre sua herança atlante e se torna o rei dos mares, Aquaman."
             },
             {
                 name: "Lanterna Verde",
                 alias: "Hal Jordan",
                 origin: "Coast City",
-                team: "Liga da Justiça",
-                category: "justice-league",
+                team: ["Liga da Justiça", "Tropa dos Lanternas Verdes"],
+                category: ["justice-league", "green-lantern-corps"],
                 powerLevel: "Cósmico",
                 powers: ["Anel de Poder", "Construtos de Energia", "Voo", "Proteção Espacial", "Tradução Universal"],
                 weakness: "Cor Amarela, Força de Vontade",
                 firstAppearance: "Showcase #22 (1959)",
                 description: "Piloto de teste que se tornou um dos Lanternas Verdes mais respeitados do universo. Criado por John Broome e Gil Kane.",
-                abilities: "Anel de poder alimentado pela força de vontade, capaz de criar qualquer construto imaginável, voo espacial e proteção contra ambientes hostis."
+                abilities: "Anel de poder alimentado pela força de vontade, capaz de criar qualquer construto imaginável, voo espacial e proteção contra ambientes hostis.",
+                primaryColor: "#43a047",
+                secondaryColor: "#00e676",
+                backHistory: "Hal Jordan foi escolhido pelo anel dos Lanternas Verdes, tornando-se protetor do setor espacial 2814."
             },
             {
                 name: "Robin",
                 alias: "Tim Drake",
                 origin: "Gotham City",
-                team: "Família Bat",
-                category: "bat-family",
+                team: ["Família Bat", "Jovens Titãs"],
+                category: ["bat-family", "teen-titans"],
                 powerLevel: "Humano",
                 powers: ["Acrobacia", "Artes Marciais", "Detetive", "Tecnologia", "Estratégia"],
                 weakness: "Humano, Inexperiência",
                 firstAppearance: "Batman #436 (1989)",
                 description: "O terceiro Robin e atual Red Robin, Tim Drake é conhecido por sua inteligência excepcional e habilidades de detetive. Criado por Marv Wolfman e Pat Broderick.",
-                abilities: "Acrobacia excepcional, artes marciais, habilidades de detetive, conhecimento em tecnologia e estratégia táctica."
+                abilities: "Acrobacia excepcional, artes marciais, habilidades de detetive, conhecimento em tecnologia e estratégia táctica.",
+                primaryColor: "#d32f2f",
+                secondaryColor: "#388e3c",
+                backHistory: "Tim Drake deduziu a identidade do Batman e se tornou o terceiro Robin, ajudando a proteger Gotham."
             },
             {
                 name: "Batgirl",
@@ -657,33 +794,42 @@
                 weakness: "Humana, Lesões Passadas",
                 firstAppearance: "Detective Comics #359 (1967)",
                 description: "Filha do Comissário Gordon, Barbara é uma das heroínas mais competentes de Gotham. Criada por Gardner Fox e Carmine Infantino.",
-                abilities: "Especialista em artes marciais, ginástica excepcional, habilidades de hacker de elite, memória fotográfica e liderança natural."
+                abilities: "Especialista em artes marciais, ginástica excepcional, habilidades de hacker de elite, memória fotográfica e liderança natural.",
+                primaryColor: "#6a1b9a",
+                secondaryColor: "#ffd600",
+                backHistory: "Barbara Gordon, filha do Comissário Gordon, assume o manto de Batgirl após salvar Bruce Wayne de um ataque."
             },
             {
                 name: "Cyborg",
                 alias: "Victor Stone",
                 origin: "Detroit",
-                team: "Liga da Justiça",
-                category: "justice-league",
+                team: "Jovens Titãs",
+                category: "teen-titans",
                 powerLevel: "Ciborgue",
                 powers: ["Força Sobre-humana", "Interface Tecnológica", "Canhão Sônico", "Voo", "Regeneração"],
                 weakness: "EMPs, Vírus de Computador",
                 firstAppearance: "DC Comics Presents #26 (1980)",
                 description: "Metade homem, metade máquina, Victor Stone é um dos heróis mais tecnologicamente avançados do universo DC. Criado por Marv Wolfman e George Pérez.",
-                abilities: "Força cibergética, interface com qualquer tecnologia, canhão sônico, sistemas de voo e capacidade de regeneração de partes mecânicas."
+                abilities: "Força cibergética, interface com qualquer tecnologia, canhão sônico, sistemas de voo e capacidade de regeneração de partes mecânicas.",
+                primaryColor: "#607d8b",
+                secondaryColor: "#00bcd4",
+                backHistory: "Victor Stone sofreu um acidente e foi salvo por tecnologia experimental, tornando-se o Cyborg."
             },
             {
                 name: "Shazam",
                 alias: "Billy Batson",
                 origin: "Fawcett City",
-                team: "Liga da Justiça",
-                category: "justice-league",
+                team: "Solo",
+                category: "solo",
                 powerLevel: "Mágico",
                 powers: ["Sabedoria de Salomão", "Força de Hércules", "Resistência de Atlas", "Poder de Zeus", "Coragem de Aquiles", "Velocidade de Mercúrio"],
                 weakness: "Magia, Palavra Mágica",
                 firstAppearance: "Whiz Comics #2 (1940)",
                 description: "Jovem que pode se transformar no herói mais poderoso do mundo ao pronunciar a palavra mágica. Criado por Bill Parker e C.C. Beck.",
-                abilities: "Poderes dos deuses antigos: sabedoria, força, resistência, poder divino, coragem e velocidade sobre-humanas."
+                abilities: "Poderes dos deuses antigos: sabedoria, força, resistência, poder divino, coragem e velocidade sobre-humanas.",
+                primaryColor: "#fbc02d",
+                secondaryColor: "#d32f2f",
+                backHistory: "Billy Batson recebe poderes mágicos ao pronunciar 'SHAZAM', tornando-se um dos heróis mais poderosos da Terra."
             },
             {
                 name: "Raven",
@@ -696,7 +842,10 @@
                 weakness: "Trigon, Emoções Intensas",
                 firstAppearance: "DC Comics Presents #26 (1980)",
                 description: "Filha do demônio Trigon, Rachel usa seus poderes sombrios para o bem. Criada por Marv Wolfman e George Pérez.",
-                abilities: "Manipulação de energia sombria, telepatia, telecinese, teletransporte através de dimensões e cura empática."
+                abilities: "Manipulação de energia sombria, telepatia, telecinese, teletransporte através de dimensões e cura empática.",
+                primaryColor: "#512da8",
+                secondaryColor: "#37474f",
+                backHistory: "Rachel Roth, filha do demônio Trigon, luta para controlar seus poderes sombrios e proteger seus amigos."
             },
             {
                 name: "Starfire",
@@ -709,7 +858,10 @@
                 weakness: "Emoções Negativas, Metal Tamaraniano",
                 firstAppearance: "DC Comics Presents #26 (1980)",
                 description: "Princesa alienígena de Tamaran, Starfire trouxe alegria e poder para os Jovens Titãs. Criada por Marv Wolfman e George Pérez.",
-                abilities: "Voo supersônico, projeção de energia estelar, força sobre-humana, absorção de linguagens através do toque e resistência excepcional."
+                abilities: "Voo supersônico, projeção de energia estelar, força sobre-humana, absorção de linguagens através do toque e resistência excepcional.",
+                primaryColor: "#ff9800",
+                secondaryColor: "#e040fb",
+                backHistory: "Koriand'r fugiu de Tamaran após ser capturada, encontrando refúgio e amizade entre os Jovens Titãs."
             }
         ];
 
@@ -720,6 +872,21 @@
         const modal = document.getElementById('heroModal');
         const modalContent = document.getElementById('modalContent');
         const closeBtn = document.querySelector('.close');
+
+        // Termos de Uso Modal
+        const termsLink = document.getElementById('termsLink');
+        const termsModal = document.getElementById('termsModal');
+        const closeTerms = document.getElementById('closeTerms');
+        termsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            termsModal.style.display = 'block';
+        });
+        closeTerms.addEventListener('click', function() {
+            termsModal.style.display = 'none';
+        });
+        window.addEventListener('click', function(e) {
+            if (e.target === termsModal) termsModal.style.display = 'none';
+        });
 
         // State
         let currentFilter = 'all';
@@ -734,9 +901,10 @@
         // Render heroes
         function renderHeroes() {
             const filteredHeroes = heroes.filter(hero => {
-                const matchesFilter = currentFilter === 'all' || hero.category === currentFilter;
+                const heroCategories = Array.isArray(hero.category) ? hero.category : [hero.category];
+                const matchesFilter = currentFilter === 'all' || heroCategories.includes(currentFilter);
                 const matchesSearch = hero.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
-                                    hero.alias.toLowerCase().includes(currentSearch.toLowerCase());
+                    hero.alias.toLowerCase().includes(currentSearch.toLowerCase());
                 return matchesFilter && matchesSearch;
             });
 
@@ -756,13 +924,20 @@
 
         // Create hero card
         function createHeroCard(hero) {
+            const heroTeams = Array.isArray(hero.team) ? hero.team : [hero.team];
+            const heroCategories = Array.isArray(hero.category) ? hero.category : [hero.category];
+            const isTitans = heroTeams.includes("Jovens Titãs") && ["Robin", "Cyborg"].includes(hero.name);
             const card = document.createElement('div');
             card.className = 'hero-card';
-            card.setAttribute('data-category', hero.category);
+            card.setAttribute('data-category', heroCategories[0]);
+            card.setAttribute('data-name', hero.name);
+            card.style.background = `linear-gradient(90deg, ${hero.primaryColor} 60%, ${hero.secondaryColor} 100%)`;
+            card.style.borderLeft = `8px solid ${hero.primaryColor}`;
             card.innerHTML = `
                 <div class="hero-header">
                     <div>
                         <div class="hero-name">${hero.name}</div>
+                        ${isTitans ? '<div class="titans-badge">Jovens Titãs</div>' : ''}
                         <div class="hero-alias">${hero.alias}</div>
                     </div>
                     <div class="power-level">${hero.powerLevel}</div>
@@ -774,11 +949,18 @@
                     </div>
                     <div class="info-row">
                         <span class="info-label">Equipe:</span>
-                        <span class="info-value">${hero.team}<span class="team-badge">${hero.category}</span></span>
+                        <span class="info-value">${heroTeams.join(', ')}${heroCategories.map(cat => `<span class=\"team-badge\">${cat}</span>`).join('')}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Fraqueza:</span>
                         <span class="info-value">${hero.weakness}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Cores:</span>
+                        <span class="info-value">
+                            <span class="color-dot" style="background:${hero.primaryColor};"></span> Principal
+                            <span class="color-dot" style="background:${hero.secondaryColor}; margin-left:8px;"></span> Secundária
+                        </span>
                     </div>
                 </div>
                 <div class="powers-list">
@@ -788,6 +970,22 @@
                     <button class="btn btn-primary" onclick="showHeroDetails('${hero.name}')">Ver Detalhes</button>
                 </div>
             `;
+            if (["Batman", "Superman", "Flash", "Aquaman", "Lanterna Verde", "Robin", "Batgirl", "Raven", "Starfire", "Cyborg", "Mulher-Maravilha", "Shazam"].includes(hero.name)) {
+                let imageName = hero.name.replace(' ', '');
+                if (hero.name === "Aquaman") imageName = "Aquamen";
+                if (hero.name === "Raven") imageName = "Raven";
+                if (hero.name === "Starfire") imageName = "Starfire";
+                if (hero.name === "Cyborg") imageName = "Cyborg";
+                if (hero.name === "Mulher-Maravilha") imageName = "Mulhermaravilha";
+                if (hero.name === "Shazam") imageName = "Shazam";
+                card.style.position = "relative";
+                card.innerHTML = `
+                    <img src="images/${imageName}.png" alt="${hero.name}" class="hero-img-bg" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(1.15); opacity: 0.18; z-index: 0; pointer-events: none; width: 80%; height: auto; filter: grayscale(0.1) contrast(1.1) drop-shadow(0 6px 24px ${hero.primaryColor}bb); border-radius: 32px;">
+                    <div class="hero-card-content" style="position: relative; z-index: 1;">
+                        ${card.innerHTML}
+                    </div>
+                `;
+            }
             return card;
         }
 
@@ -807,6 +1005,9 @@
                     <p><strong>Fraqueza:</strong> ${hero.weakness}</p>
                     <p><strong>Primeira Aparição:</strong> ${hero.firstAppearance}</p>
                     <p>${hero.description}</p>
+                    <div class="modal-back-history" style="margin-top:1.2rem; background:#222c; border-radius:12px; padding:0.7rem 1rem; color:#fff; font-size:0.95rem; box-shadow:1px 1px 0 #ff0080; font-family:'Press Start 2P', 'VT323', 'Courier New', Courier, monospace;">
+                        <strong>Back History:</strong> <span style="opacity:0.85;">${hero.backHistory ? hero.backHistory : 'História não disponível.'}</span>
+                    </div>
                 </div>
             `;
             modal.style.display = 'block';
@@ -834,6 +1035,109 @@
         searchInput.addEventListener('input', (e) => {
             currentSearch = e.target.value;
             renderHeroes();
+        });
+
+        // Equipes disponíveis
+        const teamsList = [
+            { name: "Liga da Justiça", filter: "justice-league" },
+            { name: "Jovens Titãs", filter: "teen-titans" },
+            { name: "Família Bat", filter: "bat-family" },
+            { name: "Tropa dos Lanternas Verdes", filter: "green-lantern-corps" }
+        ];
+
+        // Cria menu de equipes ao clicar no botão Equipes
+        const teamsBtn = document.getElementById('teamsBtn');
+        let teamsMenu;
+        teamsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (teamsMenu) {
+                teamsMenu.remove();
+                teamsMenu = null;
+                return;
+            }
+            teamsMenu = document.createElement('div');
+            teamsMenu.style.position = 'absolute';
+            teamsMenu.style.top = (teamsBtn.getBoundingClientRect().bottom + window.scrollY) + 'px';
+            teamsMenu.style.left = (teamsBtn.getBoundingClientRect().left) + 'px';
+            teamsMenu.style.background = '#222';
+            teamsMenu.style.borderRadius = '12px';
+            teamsMenu.style.boxShadow = '0 2px 12px #00eaffcc';
+            teamsMenu.style.padding = '1rem';
+            teamsMenu.style.zIndex = '2001';
+            teamsMenu.style.minWidth = '180px';
+            teamsMenu.style.display = 'flex';
+            teamsMenu.style.flexDirection = 'column';
+            teamsMenu.style.gap = '0.7rem';
+            teamsMenu.innerHTML = teamsList.map(team => `<button class='filter-btn' style='width:100%;text-align:left;' data-filter='${team.filter}'>${team.name}</button>`).join('');
+            document.body.appendChild(teamsMenu);
+            teamsMenu.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentFilter = btn.getAttribute('data-filter');
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    renderHeroes();
+                    teamsMenu.remove();
+                    teamsMenu = null;
+                });
+            });
+            // Fecha menu ao clicar fora
+            setTimeout(() => {
+                document.addEventListener('click', closeTeamsMenu);
+            }, 10);
+        });
+        function closeTeamsMenu(e) {
+            if (teamsMenu && !teamsMenu.contains(e.target) && e.target !== teamsBtn) {
+                teamsMenu.remove();
+                teamsMenu = null;
+                document.removeEventListener('click', closeTeamsMenu);
+            }
+        }
+
+        // Mostra HQs apenas ao clicar em Universo
+        const universeBtn = document.querySelector('nav a[href="#universe"]');
+        const universeSection = document.getElementById('universe');
+        universeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('main section').forEach(sec => {
+                if (sec !== universeSection) sec.style.display = 'none';
+            });
+            universeSection.style.display = 'block';
+            window.scrollTo({ top: universeSection.offsetTop - 80, behavior: 'smooth' });
+        });
+        // Exibe home ao carregar
+        window.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('main section').forEach(sec => {
+                if (sec.id !== 'home') sec.style.display = 'none';
+            });
+        });
+
+        // Heroes
+        const heroesBtn = document.querySelector('nav a[href="#heroes"]');
+        const heroesSection = document.getElementById('heroes');
+        heroesBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('main section').forEach(sec => {
+                if (sec !== heroesSection) sec.style.display = 'none';
+            });
+            heroesSection.style.display = 'block';
+            // Ativa filtro 'Todos' e mostra todos os cards
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+            if (allBtn) allBtn.classList.add('active');
+            currentFilter = 'all';
+            renderHeroes();
+            window.scrollTo({ top: heroesSection.offsetTop - 80, behavior: 'smooth' });
+        });
+
+        // Home
+        const homeBtn = document.querySelector('nav a[href="#home"]');
+        const homeSection = document.getElementById('home');
+        homeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('main section').forEach(sec => {
+                if (sec !== homeSection) sec.style.display = 'none';
+            });
+            homeSection.style.display = 'block';
+            window.scrollTo({ top: homeSection.offsetTop - 80, behavior: 'smooth' });
         });
 
         // Initialize

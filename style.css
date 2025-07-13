@@ -96,6 +96,183 @@ ul li {
     border-left: 8px solid #ffd700;
     background: linear-gradient(90deg, rgba(255,215,0,0.08) 60%, rgba(79,172,254,0.04) 100%);
 }
+.hero-card {
+  width: 245px;
+  height: 406px;
+  min-width: 245px;
+  min-height: 406px;
+  max-width: 245px;
+  max-height: 406px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Press Start 2P', 'VT323', 'Courier New', Courier, monospace;
+  background: repeating-linear-gradient(135deg, #222 0 8px, #333 8px 16px, #222 16px 24px);
+  border-image: repeating-linear-gradient(135deg, #fff200 0 10px, #ff0080 10px 20px, #00eaff 20px 30px, #fff200 30px 40px) 30;
+  color: #222;
+}
+.hero-card:hover {
+  transform: scale(1.04) rotate(-1deg);
+  box-shadow: 0 16px 48px #ff0080cc, 0 2px 12px #00eaffcc;
+  border-color: #ff0080;
+}
+.hero-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+}
+.hero-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 0.2rem;
+  color: #222;
+  text-shadow: 2px 2px 0 #fff200, 4px 4px 0 #00eaff;
+  font-family: 'Press Start 2P', 'VT323', 'Courier New', Courier, monospace;
+}
+.hero-alias {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+  color: #222;
+  text-shadow: 1px 1px 0 #fff200;
+}
+.power-level {
+  background: #fff200;
+  color: #222;
+  padding: 0.4rem 1.1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 2px 2px 0 #fff200, 4px 4px 0 #00eaff;
+  font-family: 'Press Start 2P', 'VT323', 'Courier New', Courier, monospace;
+}
+.hero-info {
+  margin-bottom: 1.2rem;
+}
+.info-row {
+  display: flex;
+  margin-bottom: 0.4rem;
+  align-items: center;
+}
+.info-label {
+  font-weight: 700;
+  color: #222;
+  min-width: 110px;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #fff200;
+  font-family: 'Press Start 2P', 'VT323', 'Courier New', Courier, monospace;
+}
+.info-value {
+  opacity: 0.93;
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin-left: 0.5rem;
+  color: #222;
+  text-shadow: 1px 1px 0 #00eaff;
+}
+.powers-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+.power-tag {
+  background: #ff0080;
+  color: #222;
+  padding: 0.38rem 1.1rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 2px 2px 0 #fff200;
+  border: 2px solid #fff200;
+  letter-spacing: 1px;
+  font-family: 'Press Start 2P', 'VT323', 'Courier New', Courier, monospace;
+}
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+.btn-primary {
+  background: #00eaff;
+  color: #222;
+  font-weight: 700;
+  border: 2px solid #fff200;
+  border-radius: 18px;
+  padding: 0.7rem 1.6rem;
+  font-size: 1rem;
+  box-shadow: 2px 2px 0 #ff0080;
+  font-family: 'Press Start 2P', 'VT323', 'Courier New', Courier, monospace;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-primary:hover {
+  background: #ff0080;
+  color: #fff200;
+  border-color: #00eaff;
+  transform: scale(1.08) rotate(1deg);
+}
+.color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  border: 2px solid #fff200;
+  margin-right: 4px;
+  box-shadow: 1px 1px 0 #ff0080;
+}
+.team-badge {
+  background: #00eaff;
+  color: #222;
+  padding: 0.2rem 0.7rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 1px 1px 0 #fff200;
+  font-family: 'Press Start 2P', 'VT323', 'Courier New', Courier, monospace;
+}
+.titans-badge {
+  background: linear-gradient(90deg, #ff0080 0%, #00eaff 100%);
+  color: #fff200;
+  font-family: 'Press Start 2P', 'VT323', 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.22rem 1.1rem;
+  border-radius: 14px;
+  margin-bottom: 0.5rem;
+  margin-top: 0.2rem;
+  box-shadow: 2px 2px 0 #fff200, 4px 4px 0 #00eaff;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+.heroes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+@media (max-width: 900px) {
+  .hero-card {
+    max-width: 98vw;
+    min-width: 0;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+  .hero-name {
+    font-size: 1.1rem;
+  }
+}
 @media (max-width: 600px) {
   main {
     padding: 16px;

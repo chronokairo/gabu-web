@@ -484,6 +484,12 @@
             height: auto;
             filter: grayscale(0.1) contrast(1.1) drop-shadow(0 6px 24px #1976d2bb);
             border-radius: 32px;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .hero-card:hover .hero-img-bg {
+            opacity: 0.38;
+            transform: translate(-50%, -50%) scale(1.22);
+            filter: grayscale(0) contrast(1.2) drop-shadow(0 8px 32px #00eaffcc);
         }
 
         .hero-card-content {
